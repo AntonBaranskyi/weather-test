@@ -1,0 +1,165 @@
+@import '../variables';
+
+.container {
+  min-height: 100vh;
+  background-color: color(bg-secondary);
+}
+
+.header {
+  background-color: color(bg-primary);
+  @include shadow(sm);
+  
+  .headerContent {
+    @include max-width;
+    padding-top: spacing(lg);
+    padding-bottom: spacing(lg);
+    
+    .title {
+      font-size: font-size(3xl);
+      font-weight: 700;
+      color: color(text-primary);
+      margin-bottom: spacing(sm);
+    }
+    
+    .subtitle {
+      color: color(text-secondary);
+      margin-top: spacing(sm);
+    }
+  }
+}
+
+.main {
+  @include max-width;
+  padding-top: spacing(2xl);
+  padding-bottom: spacing(2xl);
+}
+
+.addCitySection {
+  background-color: color(bg-primary);
+  border-radius: radius(lg);
+  @include shadow(md);
+  padding: spacing(lg);
+  margin-bottom: spacing(2xl);
+  
+  .sectionTitle {
+    font-size: font-size(lg);
+    font-weight: 600;
+    margin-bottom: spacing(md);
+    color: color(text-primary);
+  }
+  
+  .form {
+    @include flex-between;
+    gap: spacing(md);
+    
+    @media (max-width: map-get($breakpoints, sm)) {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    
+    .inputContainer {
+      flex: 1;
+      
+      .input {
+        width: 100%;
+        padding: spacing(sm) spacing(md);
+        border: 1px solid color(border);
+        border-radius: radius(lg);
+        font-size: font-size(base);
+        @include transition(border-color);
+        
+        &:focus {
+          outline: none;
+          border-color: color(primary);
+          box-shadow: 0 0 0 3px color(primary-light);
+        }
+        
+        &:disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
+        }
+        
+        &::placeholder {
+          color: color(text-light);
+        }
+      }
+    }
+    
+    .submitButton {
+      @include button-primary;
+      padding: spacing(sm) spacing(lg);
+      white-space: nowrap;
+      
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+    }
+  }
+  
+  .error {
+    margin-top: spacing(sm);
+    padding: spacing(sm) spacing(md);
+    background-color: #fef2f2;
+    border: 1px solid #fecaca;
+    color: color(error);
+    border-radius: radius(md);
+    font-size: font-size(sm);
+  }
+}
+
+.citiesGrid {
+  @include responsive-grid(1, 2, 3, spacing(lg));
+}
+
+.emptyState {
+  text-align: center;
+  padding: spacing(4xl) 0;
+  
+  .emptyIcon {
+    font-size: 4rem;
+    color: color(text-light);
+    margin-bottom: spacing(md);
+  }
+  
+  .emptyTitle {
+    font-size: font-size(xl);
+    font-weight: 600;
+    color: color(text-primary);
+    margin-bottom: spacing(sm);
+  }
+  
+  .emptyDescription {
+    color: color(text-secondary);
+  }
+}
+
+.loadingContainer {
+  @include flex-center;
+  min-height: 100vh;
+  
+  .loadingContent {
+    text-align: center;
+    
+    .spinner {
+      @include flex-center;
+      width: 48px;
+      height: 48px;
+      margin: 0 auto spacing(md);
+      
+      &::after {
+        content: '';
+        width: 48px;
+        height: 48px;
+        border: 2px solid color(border);
+        border-top-color: color(primary);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+    }
+    
+    .loadingText {
+      color: color(text-secondary);
+    }
+  }
+}

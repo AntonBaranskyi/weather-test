@@ -1,0 +1,167 @@
+@import '../variables';
+
+.cityCard {
+  background-color: color(bg-primary);
+  border-radius: radius(lg);
+  @include shadow(md);
+  @include transition(box-shadow);
+  cursor: pointer;
+  overflow: hidden;
+  
+  &:hover {
+    @include shadow(lg);
+  }
+  
+  .cardContent {
+    padding: spacing(lg);
+  }
+  
+  .cardHeader {
+    @include flex-between;
+    align-items: flex-start;
+    margin-bottom: spacing(md);
+    
+    .cityInfo {
+      .cityName {
+        font-size: font-size(lg);
+        font-weight: 600;
+        color: color(text-primary);
+        margin-bottom: spacing(xs);
+      }
+      
+      .cityCountry {
+        font-size: font-size(sm);
+        color: color(text-secondary);
+      }
+    }
+    
+    .cardActions {
+      display: flex;
+      gap: spacing(sm);
+      
+      .actionButton {
+        @include flex-center;
+        padding: spacing(sm);
+        color: color(text-light);
+        @include transition(color);
+        border-radius: radius(md);
+        
+        &:hover {
+          background-color: color(bg-gray);
+        }
+        
+        &.refreshButton:hover {
+          color: color(primary);
+        }
+        
+        &.deleteButton:hover {
+          color: color(error);
+        }
+        
+        &:disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
+        }
+        
+        .icon {
+          width: 16px;
+          height: 16px;
+        }
+        
+        .iconSpin {
+          animation: spin 1s linear infinite;
+        }
+      }
+    }
+  }
+  
+  .weatherContent {
+    .loadingContainer {
+      @include flex-center;
+      padding: spacing(2xl) 0;
+    }
+    
+    .weatherData {
+      .temperatureSection {
+        @include flex-between;
+        margin-bottom: spacing(sm);
+        
+        .weatherIcon {
+          display: flex;
+          align-items: center;
+          
+          .icon {
+            width: 64px;
+            height: 64px;
+          }
+          
+          .tempInfo {
+            margin-left: spacing(sm);
+            
+            .temperature {
+              font-size: font-size(2xl);
+              font-weight: 700;
+              color: color(text-primary);
+              line-height: 1;
+            }
+            
+            .description {
+              font-size: font-size(sm);
+              color: color(text-secondary);
+              text-transform: capitalize;
+              margin-top: spacing(xs);
+            }
+          }
+        }
+      }
+      
+      .weatherDetails {
+        @include grid(2, spacing(md));
+        font-size: font-size(sm);
+        
+        .detailItem {
+          .label {
+            color: color(text-secondary);
+            margin-bottom: spacing(xs);
+          }
+          
+          .value {
+            font-weight: 500;
+            color: color(text-primary);
+          }
+        }
+      }
+      
+      .lastUpdated {
+        margin-top: spacing(md);
+        padding-top: spacing(sm);
+        border-top: 1px solid color(border-light);
+        
+        .updateTime {
+          font-size: font-size(xs);
+          color: color(text-light);
+        }
+      }
+    }
+    
+    .errorState {
+      text-align: center;
+      padding: spacing(md) 0;
+      
+      .errorMessage {
+        color: color(text-light);
+        margin-bottom: spacing(sm);
+      }
+      
+      .retryButton {
+        color: color(primary);
+        font-size: font-size(sm);
+        @include transition(color);
+        
+        &:hover {
+          color: color(primary-hover);
+        }
+      }
+    }
+  }
+}

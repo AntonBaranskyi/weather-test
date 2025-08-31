@@ -1,0 +1,294 @@
+@import '../variables';
+
+.container {
+  min-height: 100vh;
+  background-color: color(bg-secondary);
+}
+
+.header {
+  background-color: color(bg-primary);
+  @include shadow(sm);
+  margin-bottom: spacing(md);
+  
+  .headerContent {
+    @include max-width;
+    padding: spacing(lg) 0;
+    
+    .nav {
+      @include flex-between;
+      
+      .backButton {
+        @include flex-center;
+        gap: spacing(sm);
+        color: color(primary);
+        @include transition(color);
+        padding: spacing(sm);
+        border-radius: radius(md);
+        
+        &:hover {
+          color: color(primary-hover);
+          background-color: color(primary-light);
+        }
+        
+        .backIcon {
+          width: 20px;
+          height: 20px;
+        }
+        
+        .backText {
+          font-weight: 500;
+        }
+      }
+      
+      .refreshButton {
+        @include button-primary;
+        gap: spacing(sm);
+        
+        &:disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
+        }
+        
+        .refreshIcon {
+          width: 16px;
+          height: 16px;
+        }
+        
+        .iconSpin {
+          animation: spin 1s linear infinite;
+        }
+      }
+    }
+  }
+}
+
+.main {
+  @include max-width;
+  padding: spacing(2xl) spacing(md);
+}
+
+.cityHeader {
+  @include max-width;
+  // margin-bottom: spacing(2xl);
+  
+  .cityTitle {
+    font-size: font-size(3xl);
+    font-weight: 700;
+    color: color(text-primary);
+    margin-bottom: spacing(sm);
+  }
+  
+  .lastUpdated {
+    color: color(text-secondary);
+  }
+}
+
+.currentWeatherCard {
+  background-color: color(bg-primary);
+  border-radius: radius(xl);
+  @include shadow(lg);
+  padding: spacing(lg);
+  margin-bottom: spacing(2xl);
+  
+  .cardTitle {
+    font-size: font-size(xl);
+    font-weight: 600;
+    margin-bottom: spacing(md);
+    color: color(text-primary);
+  }
+  
+  .weatherGrid {
+    @include grid(1, spacing(lg));
+    
+    @include md {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    @include lg {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  
+  .temperatureSection {
+    text-align: center;
+    
+    .mainTemp {
+      font-size: font-size(4xl);
+      font-weight: 700;
+      color: color(primary);
+      margin-bottom: spacing(sm);
+      line-height: 1;
+    }
+    
+    .description {
+      color: color(text-secondary);
+      text-transform: capitalize;
+      margin-bottom: spacing(sm);
+    }
+    
+    .feelsLike {
+      font-size: font-size(sm);
+      color: color(text-light);
+    }
+  }
+  
+  .detailsSection {
+    .sectionTitle {
+      font-weight: 500;
+      color: color(text-primary);
+      margin-bottom: spacing(sm);
+    }
+    
+    .detailsList {
+      display: flex;
+      flex-direction: column;
+      gap: spacing(sm);
+      
+      .detailItem {
+        @include flex-between;
+        font-size: font-size(sm);
+        
+        .label {
+          color: color(text-secondary);
+        }
+        
+        .value {
+          font-weight: 500;
+          color: color(text-primary);
+        }
+      }
+    }
+  }
+}
+
+.forecastCard {
+  background-color: color(bg-primary);
+  border-radius: radius(xl);
+  @include shadow(lg);
+  padding: spacing(lg);
+  
+  .cardTitle {
+    font-size: font-size(xl);
+    font-weight: 600;
+    margin-bottom: spacing(md);
+    color: color(text-primary);
+  }
+  
+  .forecastGrid {
+    @include grid(1, spacing(md));
+    
+    @include sm {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    @include md {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    
+    @include lg {
+      grid-template-columns: repeat(4, 1fr);
+    }
+    
+    @include xl {
+      grid-template-columns: repeat(6, 1fr);
+    }
+  }
+  
+  .forecastItem {
+    text-align: center;
+    padding: spacing(sm);
+    border-radius: radius(lg);
+    background-color: color(bg-gray);
+    @include transition(background-color);
+    
+    &:hover {
+      background-color: color(border-light);
+    }
+    
+    .time {
+      font-size: font-size(sm);
+      color: color(text-secondary);
+      margin-bottom: spacing(sm);
+    }
+    
+    .icon {
+      width: 48px;
+      height: 48px;
+      margin: 0 auto spacing(sm);
+    }
+    
+    .temp {
+      font-weight: 600;
+      font-size: font-size(lg);
+      margin-bottom: spacing(xs);
+      color: color(text-primary);
+    }
+    
+    .description {
+      font-size: font-size(xs);
+      color: color(text-light);
+      text-transform: capitalize;
+      margin-bottom: spacing(xs);
+    }
+    
+    .precipitation {
+      font-size: font-size(xs);
+      color: color(primary);
+    }
+  }
+}
+
+.loadingContainer {
+  @include flex-center;
+  min-height: 100vh;
+  
+  .loadingContent {
+    text-align: center;
+    
+    .spinner {
+      @include flex-center;
+      width: 48px;
+      height: 48px;
+      margin: 0 auto spacing(md);
+      
+      &::after {
+        content: '';
+        width: 48px;
+        height: 48px;
+        border: 2px solid color(border);
+        border-top-color: color(primary);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+    }
+    
+    .loadingText {
+      color: color(text-secondary);
+    }
+  }
+}
+
+.errorContainer {
+  @include flex-center;
+  min-height: 100vh;
+  
+  .errorContent {
+    text-align: center;
+    
+    .errorTitle {
+      font-size: font-size(2xl);
+      font-weight: 700;
+      color: color(error);
+      margin-bottom: spacing(md);
+    }
+    
+    .errorMessage {
+      color: color(text-secondary);
+      margin-bottom: spacing(md);
+    }
+    
+    .errorButton {
+      @include button-primary;
+    }
+  }
+}

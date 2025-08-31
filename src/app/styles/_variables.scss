@@ -1,0 +1,237 @@
+$colors: (
+  primary: #3b82f6,
+  primary-hover: #2563eb,
+  primary-light: #dbeafe,
+  
+  secondary: #6b7280,
+  secondary-light: #f3f4f6,
+  
+  success: #10b981,
+  error: #ef4444,
+  warning: #f59e0b,
+  
+  text-primary: #111827,
+  text-secondary: #6b7280,
+  text-light: #9ca3af,
+  
+  bg-primary: #ffffff,
+  bg-secondary: #f9fafb,
+  bg-gray: #f3f4f6,
+  
+  border: #e5e7eb,
+  border-light: #f3f4f6,
+  
+  shadow: rgba(0, 0, 0, 0.1),
+  shadow-lg: rgba(0, 0, 0, 0.15)
+);
+
+@function color($key) {
+  @return map-get($colors, $key);
+}
+
+$spacing: (
+  xs: 0.25rem,  // 4px
+  sm: 0.5rem,   // 8px
+  md: 1rem,     // 16px
+  lg: 1.5rem,   // 24px
+  xl: 2rem,     // 32px
+  2xl: 3rem,    // 48px
+  3xl: 4rem,    // 64px
+  4xl: 6rem,    // 96px
+);
+
+@function spacing($key) {
+  @return map-get($spacing, $key);
+}
+
+$font-sizes: (
+  xs: 0.75rem,   // 12px
+  sm: 0.875rem,  // 14px
+  base: 1rem,    // 16px
+  lg: 1.125rem,  // 18px
+  xl: 1.25rem,   // 20px
+  2xl: 1.5rem,   // 24px
+  3xl: 1.875rem, // 30px
+  4xl: 2.25rem,  // 36px
+  5xl: 3rem,     // 48px
+);
+
+@function font-size($key) {
+  @return map-get($font-sizes, $key);
+}
+
+$border-radius: (
+  sm: 0.25rem,   // 4px
+  md: 0.375rem,  // 6px
+  lg: 0.5rem,    // 8px
+  xl: 0.75rem,   // 12px
+  2xl: 1rem,     // 16px
+  full: 9999px
+);
+
+@function radius($key) {
+  @return map-get($border-radius, $key);
+}
+
+// Breakpoints
+$breakpoints: (
+  sm: 640px,
+  md: 768px,
+  lg: 1024px,
+  xl: 1280px,
+  2xl: 1536px
+);
+
+@mixin sm {
+  @media (min-width: map-get($breakpoints, sm)) {
+    @content;
+  }
+}
+
+@mixin md {
+  @media (min-width: map-get($breakpoints, md)) {
+    @content;
+  }
+}
+
+@mixin lg {
+  @media (min-width: map-get($breakpoints, lg)) {
+    @content;
+  }
+}
+
+@mixin xl {
+  @media (min-width: map-get($breakpoints, xl)) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media (max-width: #{map-get($breakpoints, sm) - 1px}) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: map-get($breakpoints, sm)) and (max-width: #{map-get($breakpoints, lg) - 1px}) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: map-get($breakpoints, lg)) {
+    @content;
+  }
+}
+
+@mixin max-width {
+  max-width: map-get($breakpoints, xl);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: spacing(md);
+  padding-right: spacing(md);
+  
+  @include lg {
+    padding-left: spacing(lg);
+    padding-right: spacing(lg);
+  }
+}
+
+@mixin transition($property: all, $duration: 0.3s, $timing: ease) {
+  transition: $property $duration $timing;
+}
+
+@mixin hover-lift {
+  @include transition(transform, 0.2s);
+  
+  &:hover {
+    transform: translateY(-2px);
+  }
+}
+
+// Тіні
+@mixin shadow($type: 'sm') {
+  @if $type == 'sm' {
+    box-shadow: 0 1px 2px 0 color(shadow);
+  } @else if $type == 'md' {
+    box-shadow: 0 4px 6px -1px color(shadow), 0 2px 4px -1px color(shadow);
+  } @else if $type == 'lg' {
+    box-shadow: 0 10px 15px -3px color(shadow-lg), 0 4px 6px -2px color(shadow);
+  }
+}
+
+// Кнопки
+@mixin button-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: spacing(sm) spacing(md);
+  border: none;
+  border-radius: radius(lg);
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  @include transition();
+  
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+@mixin button-primary {
+  @include button-base;
+  background-color: color(primary);
+  color: white;
+  
+  &:hover:not(:disabled) {
+    background-color: color(primary-hover);
+  }
+}
+
+@mixin button-secondary {
+  @include button-base;
+  background-color: color(bg-secondary);
+  color: color(text-primary);
+  border: 1px solid color(border);
+  
+  &:hover:not(:disabled) {
+    background-color: color(bg-gray);
+  }
+}
+
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
+@mixin grid($columns: 1, $gap: spacing(md)) {
+  display: grid;
+  grid-template-columns: repeat($columns, 1fr);
+  gap: $gap;
+}
+
+@mixin responsive-grid($sm: 1, $md: 2, $lg: 3, $gap: spacing(lg)) {
+  @include grid($sm, $gap);
+  
+  @include sm {
+    grid-template-columns: repeat($sm, 1fr);
+  }
+  
+  @include md {
+    grid-template-columns: repeat($md, 1fr);
+  }
+  
+  @include lg {
+    grid-template-columns: repeat($lg, 1fr);
+  }
+}

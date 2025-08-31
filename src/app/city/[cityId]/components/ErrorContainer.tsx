@@ -1,0 +1,23 @@
+'use client';
+
+import styles from '@/app/styles/components/city-details.module.scss';
+
+interface ErrorContainerProps {
+  title: string;
+  message?: string;
+  onGoBack: () => void;
+}
+
+export default function ErrorContainer({ title, message, onGoBack }: ErrorContainerProps) {
+  return (
+    <div className={styles.errorContainer}>
+      <div className={styles.errorContent}>
+        <h1 className={styles.errorTitle}>{title}</h1>
+        {message && <p className={styles.errorMessage}>{message}</p>}
+        <button onClick={onGoBack} className={styles.errorButton}>
+          Повернутися на головну
+        </button>
+      </div>
+    </div>
+  );
+}

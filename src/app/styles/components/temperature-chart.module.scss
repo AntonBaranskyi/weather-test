@@ -1,0 +1,178 @@
+@import '../variables';
+
+.chartContainer {
+  background-color: color(bg-primary);
+  border-radius: radius(lg);
+  @include shadow(md);
+  margin-bottom: spacing(2xl);
+  overflow: hidden;
+  @include transition(box-shadow);
+
+  &:hover {
+    @include shadow(lg);
+  }
+
+  @include mobile {
+    margin-bottom: spacing(lg);
+  }
+}
+
+.chartWrapper {
+  position: relative;
+  height: 400px;
+  width: 100%;
+  padding: spacing(lg);
+  
+  @include mobile {
+    height: 300px;
+    padding: spacing(md);
+  }
+
+  // Стилі для canvas елементу
+  canvas {
+    border-radius: radius(md);
+  }
+}
+
+.chartInfo {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: spacing(md);
+  padding: spacing(lg);
+  padding-top: spacing(xl);
+  border-top: 1px solid color(border-light);
+
+  @include mobile {
+    grid-template-columns: repeat(2, 1fr);
+    gap: spacing(sm);
+    padding: spacing(md);
+    padding-top: spacing(lg);
+  }
+
+  @include tablet {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.infoItem {
+  @include flex-center;
+  flex-direction: column;
+  text-align: center;
+  padding: spacing(md);
+  background-color: color(bg-secondary);
+  border-radius: radius(md);
+  border: 1px solid color(border-light);
+  @include transition();
+  @include hover-lift;
+
+  &:hover {
+    background-color: color(bg-gray);
+    @include shadow(sm);
+  }
+
+  @include mobile {
+    padding: spacing(sm);
+  }
+}
+
+.infoLabel {
+  font-size: font-size(sm);
+  color: color(text-secondary);
+  font-weight: 500;
+  margin-bottom: spacing(xs);
+  line-height: 1.25;
+
+  @include mobile {
+    font-size: font-size(xs);
+  }
+}
+
+.infoValue {
+  font-size: font-size(lg);
+  font-weight: 700;
+  color: color(text-primary);
+  line-height: 1.25;
+
+  @include mobile {
+    font-size: font-size(md);
+  }
+}
+
+// Стилі для маленьких мобільних екранів
+@media (max-width: 480px) {
+  .chartContainer {
+    border-radius: radius(md);
+  }
+
+  .chartWrapper {
+    height: 250px;
+    padding: spacing(sm);
+  }
+
+  .chartInfo {
+    grid-template-columns: 1fr;
+    gap: spacing(xs);
+    padding: spacing(sm);
+  }
+
+  .infoItem {
+    @include flex-between;
+    flex-direction: row;
+    text-align: left;
+    padding: spacing(sm);
+  }
+
+  .infoLabel {
+    margin-bottom: 0;
+    margin-right: spacing(sm);
+  }
+}
+
+// Стилі для завантаження
+.chartLoading {
+  .chartWrapper {
+    @include flex-center;
+    
+    &::after {
+      content: '';
+      width: 40px;
+      height: 40px;
+      border: 3px solid color(border);
+      border-top: 3px solid color(primary);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+// Стилі для помилок
+.chartError {
+  @include flex-center;
+  flex-direction: column;
+  height: 300px;
+  color: color(error);
+  text-align: center;
+  padding: spacing(lg);
+
+  .errorIcon {
+    font-size: font-size(4xl);
+    margin-bottom: spacing(lg);
+  }
+
+  .errorMessage {
+    font-size: font-size(lg);
+    font-weight: 600;
+    color: color(text-primary);
+    margin-bottom: spacing(sm);
+  }
+
+  .errorDetails {
+    font-size: font-size(sm);
+    color: color(text-secondary);
+  }
+}
