@@ -2,6 +2,7 @@
 
 import SafeTimeDisplay from '@/app/(main)/components/SafeTimeDisplay';
 import styles from '@/app/styles/components/city-details.module.scss';
+import { useCityDetailHeader } from '../hooks/city-detail-header';
 
 interface CityHeaderProps {
   city: {
@@ -9,42 +10,59 @@ interface CityHeaderProps {
     country: string;
   };
   lastUpdated: number;
-  onGoBack: () => void;
   onRefresh: () => void;
   refreshing: boolean;
 }
 
-export default function CityHeader({ 
-  city, 
-  lastUpdated, 
-  onGoBack, 
-  onRefresh, 
-  refreshing 
+export default function CityHeader({
+  city,
+  lastUpdated,
+  onRefresh,
+  refreshing,
 }: CityHeaderProps) {
+  const { handleGoBack } = useCityDetailHeader();
+
   return (
     <>
       <header className={styles.header}>
         <div className={styles.headerContent}>
           <div className={styles.nav}>
-            <button onClick={onGoBack} className={styles.backButton}>
-              <svg className={styles.backIcon} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            <button onClick={handleGoBack} className={styles.backButton}>
+              <svg
+                className={styles.backIcon}
+                fill='none'
+                stroke='currentColor'
+                viewBox='0 0 24 24'
+              >
+                <path
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                  strokeWidth={2}
+                  d='M15 19l-7-7 7-7'
+                />
               </svg>
               <span className={styles.backText}>Назад до списку</span>
             </button>
-            
+
             <button
               onClick={onRefresh}
               disabled={refreshing}
               className={styles.refreshButton}
             >
-              <svg 
-                className={`${styles.refreshIcon} ${refreshing ? styles.iconSpin : ''}`} 
-                fill="none" 
-                stroke="currentColor" 
-                viewBox="0 0 24 24"
+              <svg
+                className={`${styles.refreshIcon} ${
+                  refreshing ? styles.iconSpin : ''
+                }`}
+                fill='none'
+                stroke='currentColor'
+                viewBox='0 0 24 24'
               >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                <path
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                  strokeWidth={2}
+                  d='M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15'
+                />
               </svg>
               {refreshing ? 'Оновлення...' : 'Оновити'}
             </button>
@@ -59,8 +77,8 @@ export default function CityHeader({
         <p className={styles.lastUpdated}>
           <SafeTimeDisplay
             timestamp={lastUpdated}
-            format="datetime"
-            prefix="Останнє оновлення: "
+            format='datetime'
+            prefix='Останнє оновлення: '
           />
         </p>
       </div>

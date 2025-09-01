@@ -14,9 +14,7 @@ class WeatherAPIService {
   private readonly defaultUnits = WeatherUnits.METRIC;
   private readonly defaultLanguage = WeatherLanguage.UK;
 
-  /**
-   * Отримання поточної погоди за назвою міста
-   */
+ 
   async getCurrentWeatherByCity(
     cityName: string,
     units: WeatherUnits = this.defaultUnits,
@@ -38,9 +36,7 @@ class WeatherAPIService {
     return response.json();
   }
 
-  /**
-   * Отримання поточної погоди за координатами
-   */
+ 
   async getCurrentWeatherByCoordinates(
     lat: number,
     lon: number,
@@ -64,9 +60,7 @@ class WeatherAPIService {
     return response.json();
   }
 
-  /**
-   * Геокодування - пошук координат за назвою міста
-   */
+
   async getLocationByCity(
     cityName: string,
     limit: number = 5
@@ -86,9 +80,6 @@ class WeatherAPIService {
     return response.json();
   }
 
-  /**
-   * Зворотне геокодування - отримання назви міста за координатами
-   */
   async getCityByCoordinates(
     lat: number,
     lon: number,
@@ -110,9 +101,6 @@ class WeatherAPIService {
     return response.json();
   }
 
-  /**
-   * 5-денний прогноз погоди з 3-годинним інтервалом
-   */
   async getFiveDayForecast(
     lat: number,
     lon: number,
@@ -141,9 +129,6 @@ class WeatherAPIService {
     return response.json();
   }
 
-  /**
-   * Отримання поточного денного прогнозу (фільтрація 5-денного прогнозу)
-   */
   async getTodayHourlyForecast(
     lat: number,
     lon: number,
@@ -169,9 +154,7 @@ class WeatherAPIService {
     };
   }
 
-  /**
-   * Комплексне отримання всіх даних для міста
-   */
+
   async getCityWeatherData(savedCity: SavedCity): Promise<CityWeatherData> {
     const currentWeather = await this.getCurrentWeatherByCoordinates(
       savedCity.coordinates.lat,
@@ -185,9 +168,7 @@ class WeatherAPIService {
     };
   }
 
-  /**
-   * Детальні дані про погоду з погодинним прогнозом
-   */
+
   async getDetailedWeatherData(savedCity: SavedCity): Promise<DetailedWeatherData> {
     const [currentWeather, hourlyForecast] = await Promise.all([
       this.getCurrentWeatherByCoordinates(
@@ -208,9 +189,7 @@ class WeatherAPIService {
     };
   }
 
-  /**
-   * Пошук міста і створення SavedCity об'єкта
-   */
+  
   async searchAndCreateCity(cityName: string): Promise<SavedCity> {
     const locations = await this.getLocationByCity(cityName, 1);
     

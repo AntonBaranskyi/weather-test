@@ -52,13 +52,29 @@ export default function SafeTimeDisplay({
 
   // Під час SSR або до гідратації показуємо загальний формат
   if (timeString === null) {
-    return (
-      <span className={className}>
-        {prefix}
-        {/* Показуємо ISO строку як fallback для SSR */}
-        {new Date(timestamp).toISOString().split('T')[1].slice(0, 5)}
-      </span>
-    );
+    try {
+      const date = new Date(timestamp);
+      if (isNaN(date.getTime())) {
+        return (
+          <span className={className}>
+            {prefix}Невідомий час
+          </span>
+        );
+      }
+      return (
+        <span className={className}>
+          {prefix}
+          {/* Показуємо ISO строку як fallback для SSR */}
+          {date.toISOString().split('T')[1].slice(0, 5)}
+        </span>
+      );
+    } catch (error) {
+      return (
+        <span className={className}>
+          {prefix}Невідомий час
+        </span>
+      );
+    }
   }
 
   return (

@@ -19,6 +19,6 @@ export default function MiniSpinner({
     className
   ].filter(Boolean).join(' ');
 
-  return <div className={spinnerClasses}></div>;
+  return <div className={spinnerClasses} data-testid="mini-spinner"></div>;
 }
 

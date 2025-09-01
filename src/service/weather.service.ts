@@ -29,9 +29,7 @@ class WeatherService {
     }
   }
 
-  /**
-   * Отримання поточної погоди за назвою міста
-   */
+ 
   async getCurrentWeatherByCity(
     cityName: string,
     units: WeatherUnits = this.defaultUnits,
@@ -48,9 +46,7 @@ class WeatherService {
     return url;
   }
 
-  /**
-   * Отримання поточної погоди за координатами
-   */
+ 
   async getCurrentWeatherByCoordinates(
     lat: number,
     lon: number,
@@ -69,9 +65,6 @@ class WeatherService {
     return url;
   }
 
-  /**
-   * Геокодування - пошук координат за назвою міста
-   */
   async getLocationByCity(
     cityName: string,
     limit: number = 5
@@ -86,9 +79,6 @@ class WeatherService {
     return url;
   }
 
-  /**
-   * Зворотне геокодування - отримання назви міста за координатами
-   */
   async getCityByCoordinates(
     lat: number,
     lon: number,
@@ -105,10 +95,7 @@ class WeatherService {
     return url;
   }
 
-  /**
-   * Погодинний прогноз на 48 годин (потрібна підписка One Call API)
-   * Для безкоштовного плану використовуємо 5-денний прогноз
-   */
+
   async getHourlyForecast(
     lat: number,
     lon: number,
@@ -129,9 +116,7 @@ class WeatherService {
     return this.httpService.get<FiveDayForecastResponse>('/data/2.5/forecast', {params});
   }
 
-  /**
-   * 5-денний прогноз погоди з 3-годинним інтервалом
-   */
+ 
   async getFiveDayForecast(
     lat: number,
     lon: number,
@@ -141,9 +126,7 @@ class WeatherService {
     return this.getHourlyForecast(lat, lon, units, lang);
   }
 
-  /**
-   * Отримання поточного денного прогнозу (фільтрація 5-денного прогнозу)
-   */
+ 
   async getTodayHourlyForecast(
     lat: number,
     lon: number,
@@ -152,7 +135,7 @@ class WeatherService {
   ): Promise<HourlyForecastResponse> {
     const forecast = await this.getFiveDayForecast(lat, lon, units, lang);
     
-    // Фільтруємо тільки сьогоднішні дані
+   
     const today = new Date();
     const todayStr = today.toISOString().split('T')[0];
     
@@ -169,9 +152,7 @@ class WeatherService {
     };
   }
 
-  /**
-   * Комплексне отримання всіх даних для міста
-   */
+ 
   async getCityWeatherData(savedCity: SavedCity): Promise<CityWeatherData> {
     const currentWeather = await this.getCurrentWeatherByCoordinates(
       savedCity.coordinates.lat,
@@ -185,9 +166,7 @@ class WeatherService {
     };
   }
 
-  /**
-   * Детальні дані про погоду з погодинним прогнозом
-   */
+
   async getDetailedWeatherData(savedCity: SavedCity): Promise<DetailedWeatherData> {
     const [currentWeather, hourlyForecast] = await Promise.all([
       this.getCurrentWeatherByCoordinates(
@@ -208,9 +187,7 @@ class WeatherService {
     };
   }
 
-  /**
-   * Пошук міста і створення SavedCity об'єкта
-   */
+
   async searchAndCreateCity(cityName: string): Promise<SavedCity> {
     const locations = await this.getLocationByCity(cityName, 1);
     

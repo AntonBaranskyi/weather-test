@@ -117,7 +117,6 @@ export const useWeatherStore = create<WeatherStore>()(
       clearErrors: () => set({ error: null, cityErrors: new Map() }),
 
       initializeStore: () => {
-        // Тимчасово очищуємо localStorage від старих даних з Map serialization
         if (typeof window !== 'undefined') {
           const currentVersion = localStorage.getItem('weather-store-version');
           if (!currentVersion || currentVersion !== '1.0') {

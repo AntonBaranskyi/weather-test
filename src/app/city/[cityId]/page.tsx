@@ -24,8 +24,8 @@ export default function CityPage() {
     refreshing,
     error,
     handleRefresh,
-    handleGoBack
   } = useCityDetailsTanStack(cityId);
+
 
   if (isLoading) {
     return (
@@ -38,7 +38,6 @@ export default function CityPage() {
       <ErrorContainer 
         title="Помилка" 
         message={error} 
-        onGoBack={handleGoBack} 
       />
     );
   }
@@ -47,19 +46,18 @@ export default function CityPage() {
     return (
       <ErrorContainer 
         title="Дані не знайдено" 
-        onGoBack={handleGoBack} 
       />
     );
   }
 
   const { currentWeather, hourlyForecast } = detailedWeatherData;
 
+
   return (
     <div className={styles.container}>
       <CityHeader
         city={city}
         lastUpdated={detailedWeatherData.lastUpdated}
-        onGoBack={handleGoBack}
         onRefresh={handleRefresh}
         refreshing={refreshing}
       />

@@ -12,7 +12,7 @@
   
   .headerContent {
     @include max-width;
-    padding: spacing(lg) 0;
+    padding: spacing(lg) 1rem;
     
     .nav {
       @include flex-between;

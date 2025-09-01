@@ -1,10 +1,8 @@
-// Базові типи для координат
 export interface Coordinates {
   lat: number;
   lon: number;
 }
 
-// Типи для поточної погоди (Current Weather API)
 export interface Weather {
   id: number;
   main: string;
@@ -69,7 +67,6 @@ export interface CurrentWeatherResponse {
   cod: number;
 }
 
-// Типи для геокодування (Geocoding API)
 export interface GeocodeResponse {
   name: string;
   local_names?: Record<string, string>;
@@ -79,7 +76,6 @@ export interface GeocodeResponse {
   state?: string;
 }
 
-// Типи для погодинного прогнозу (Hourly Forecast API)
 export interface HourlyForecastItem {
   dt: number;
   main: MainWeatherInfo;
@@ -87,7 +83,7 @@ export interface HourlyForecastItem {
   clouds: Clouds;
   wind: Wind;
   visibility: number;
-  pop: number; // Probability of precipitation
+  pop: number; 
   rain?: Rain;
   snow?: Snow;
   dt_txt: string;
@@ -110,7 +106,6 @@ export interface HourlyForecastResponse {
   };
 }
 
-// Типи для 5-денного прогнозу (5 Day Weather Forecast API)
 export interface FiveDayForecastResponse {
   cod: string;
   message: number;
@@ -128,9 +123,8 @@ export interface FiveDayForecastResponse {
   };
 }
 
-// Параметри для запитів
 export interface WeatherRequestParams {
-  q?: string; // City name
+  q?: string; 
   lat?: number;
   lon?: number;
   appid: string;
@@ -140,7 +134,7 @@ export interface WeatherRequestParams {
 }
 
 export interface ForecastRequestParams extends WeatherRequestParams {
-  cnt?: number; // Number of timestamps to return
+  cnt?: number; 
 }
 
 export interface SavedCity {
@@ -166,7 +160,7 @@ export interface DetailedWeatherData extends CityWeatherData {
   hourlyForecast?: HourlyForecastResponse;
 }
 
-// Енуми для зручності
+
 export enum WeatherUnits {
   STANDARD = 'standard',
   METRIC = 'metric',
