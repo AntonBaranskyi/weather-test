@@ -4,14 +4,16 @@ import { useParams } from 'next/navigation';
 import styles from '@/app/styles/components/city-details.module.scss';
 import { LoadingSpinner } from '@/app/(main)/components';
 import { useCityDetailsTanStack } from '@/app/(main)/components/hooks/useCityDetailsTanStack';
-import { 
-  CityHeader, 
-  CurrentWeatherCard, 
-  HourlyForecastCard, 
+import {
+  CityHeader,
+  CurrentWeatherCard,
+  HourlyForecastCard,
   ErrorContainer,
   TemperatureChart,
-  ChartErrorBoundary
+  ChartErrorBoundary,
 } from './components';
+import { useIsMobile } from '@/shared/hooks/use-is-mobile';
+import BackToTop from '@/shared/components/back-to-top';
 
 export default function CityPage() {
   const params = useParams();
@@ -26,32 +28,23 @@ export default function CityPage() {
     handleRefresh,
   } = useCityDetailsTanStack(cityId);
 
+  const isMobile = useIsMobile();
 
   if (isLoading) {
-    return (
-     <LoadingSpinner text='Завантаження...' />
-    );
+    return <LoadingSpinner text='Завантаження...' />;
   }
 
   if (error) {
-    return (
-      <ErrorContainer 
-        title="Помилка" 
-        message={error} 
-      />
-    );
+    return <ErrorContainer title='Помилка' message={error} />;
   }
 
   if (!detailedWeatherData || !city) {
-    return (
-      <ErrorContainer 
-        title="Дані не знайдено" 
-      />
-    );
+    return <ErrorContainer title='Дані не знайдено' />;
   }
 
   const { currentWeather, hourlyForecast } = detailedWeatherData;
 
+  
 
   return (
     <div className={styles.container}>
@@ -67,7 +60,7 @@ export default function CityPage() {
 
         {hourlyForecast && hourlyForecast.list.length > 0 && (
           <ChartErrorBoundary>
-            <TemperatureChart 
+            <TemperatureChart
               hourlyForecast={hourlyForecast}
               cityName={`${city.name}, ${city.country}`}
             />
@@ -76,6 +69,10 @@ export default function CityPage() {
 
         {hourlyForecast && hourlyForecast.list.length > 0 && (
           <HourlyForecastCard hourlyForecast={hourlyForecast} />
+        )}
+
+        {isMobile && (
+          <BackToTop />
         )}
       </main>
     </div>

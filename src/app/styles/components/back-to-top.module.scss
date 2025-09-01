@@ -1,0 +1,10 @@
+@import '../variables';
+
+.backToTopContainer {
+  flex: 1;
+  @include flex-center;
+  .backToTopButton {
+    @include button-primary;
+    margin-top: spacing(md);
+  }
+}

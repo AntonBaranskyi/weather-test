@@ -198,11 +198,11 @@
     text-align: center;
     padding: spacing(sm);
     border-radius: radius(lg);
-    background-color: color(bg-gray);
+    background-color: rgba(211, 211, 211, 0.616);
     @include transition(background-color);
     
     &:hover {
-      background-color: color(border-light);
+      background-color: rgba(211, 211, 211, 0.76);
     }
     
     .time {
@@ -292,3 +292,6 @@
     }
   }
 }
+
+
+

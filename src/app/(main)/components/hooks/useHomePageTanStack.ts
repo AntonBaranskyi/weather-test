@@ -31,8 +31,6 @@ export const useHomePageTanStack = () => {
       
       addCity(newCity);
       
-  
-      
     } catch (error) {
       console.error('Error adding city:', error);
     } finally {
