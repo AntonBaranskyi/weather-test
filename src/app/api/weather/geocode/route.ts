@@ -28,12 +28,10 @@ export async function GET(request: NextRequest) {
     let url: URL;
     
     if (query) {
-      // Direct geocoding
       url = new URL(`${BASE_URL}/direct`);
       url.searchParams.append('q', query);
       url.searchParams.append('limit', limit);
     } else {
-      // Reverse geocoding
       url = new URL(`${BASE_URL}/reverse`);
       url.searchParams.append('lat', lat!);
       url.searchParams.append('lon', lon!);

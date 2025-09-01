@@ -8,7 +8,6 @@ export default function StoreInitializer() {
   const { initializeStore } = useWeatherActions(); 
 
   useEffect(() => {
-    // Ініціалізуємо store тільки на клієнті
     if (typeof window !== 'undefined') {
       initializeStore();
     }
