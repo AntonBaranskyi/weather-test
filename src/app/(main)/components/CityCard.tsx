@@ -17,7 +17,7 @@ export default function CityCard({
   city,
   
 }: CityCardProps) {
-  const { data: weatherData, isLoading: isLoadingWeather } = useCityWeather(city);
+  const { data: weatherData, isLoading: isLoadingWeather, dataUpdatedAt } = useCityWeather(city);
 
   const { handleRefreshCity, handleRemoveCity, handleCityClick } = useCityCard(city.id);
 
@@ -106,9 +106,9 @@ export default function CityCard({
               <div className={cardStyles.lastUpdated}>
                 <div className={cardStyles.updateTime}>
                   <SafeTimeDisplay
-                    timestamp={city.addedAt}
-                    format="time"
-                    prefix="Оновлено: "
+                    timestamp={dataUpdatedAt || Date.now()}
+                    format="datetime"
+                    prefix="Останнє оновлення: "
                   />
                 </div>
               </div>

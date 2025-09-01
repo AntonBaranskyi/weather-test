@@ -3,7 +3,7 @@ import { useCities } from '@/store/weather.hooks';
 import { useRouter } from 'next/navigation';
 
 export const useCityCard = (cityId: string) => {
-  const refreshCityWeather = useRefreshCityWeather();
+  const refreshCityWeather = useRefreshCityWeather(cityId);
   const { removeCity } = useCities();
 
   const router = useRouter();
@@ -13,7 +13,7 @@ export const useCityCard = (cityId: string) => {
 
   const handleRefreshCity = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
-    await refreshCityWeather(cityId);
+    await refreshCityWeather();
   };
 
   const handleRemoveCity = (e: React.MouseEvent<HTMLButtonElement>) => {
