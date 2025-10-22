@@ -16,6 +16,17 @@ export default function Home() {
 
   const isMobile = useIsMobile();
 
+  const handleClick = ()=>{
+      const testImageUrl = 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&h=500&fit=crop&crop=face';
+      
+      navigator.share({
+        title: 'Test Share',
+        text: 'Test Share',
+        url: testImageUrl,
+      });
+     
+  }
+
   return (
     <div className={styles.container}>
       <PageHeader
@@ -34,6 +45,8 @@ export default function Home() {
 
         {isMobile && <BackToTop />}
       </main>
+
+      <button onClick={handleClick}>Share</button>
     </div>
   );
 }
