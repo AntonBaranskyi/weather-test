@@ -17,13 +17,10 @@ export default function Home() {
   const isMobile = useIsMobile();
 
   const handleClick = ()=>{
-      const testImageUrl = 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&h=500&fit=crop&crop=face';
-      
-      navigator.share({
-        title: 'Test Share',
-        text: 'Test Share',
-        url: testImageUrl,
-      });
+    const sharePage =`${window.location.origin}/share/57e7eb89-d108-4393-92d5-abd5806ac553-1761166009582`;
+
+      const shareUrl =`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(sharePage)}`;
+    window.open(shareUrl, '_blank', 'noopener,noreferrer');
      
   }
 
