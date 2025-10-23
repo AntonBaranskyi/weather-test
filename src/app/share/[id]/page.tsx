@@ -1,17 +1,18 @@
 // app/share/[id]/page.tsx
 import { Metadata } from 'next';
-
 import Image from 'next/image';
 
 export const generateMetadata = async ({
   params,
 }: {
   params: Promise<{ id: string }>;
-}): Promise<Metadata> => {
+}, parent: any): Promise<Metadata> => {
   const { id } = await params;
-  // params.id вже містить повний fileKey (наприклад: shared-streak/filename)
-  const imageUrl = `https://storage.googleapis.com/dev-alh-app-dev-001-public-assets/${id}`;
-  const baseUrl = window.location.origin;
+  // Використовуємо той самий URL що і в компоненті
+  const imageUrl = `https://storage.googleapis.com/dev-alh-app-dev-001-public-assets/shared-streak/${id}`;
+  
+  // Спробуємо отримати URL з headers або використаємо фіксований
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://weather-test-iwqjw769f-antonbaranskyis-projects.vercel.app';
 
   // eslint-disable-next-line no-console
   console.log('Metadata - imageUrl:', imageUrl);
@@ -32,11 +33,13 @@ export const generateMetadata = async ({
           width: 1200,
           height: 630,
           alt: 'Learning progress screenshot',
+          type: 'image/png',
         },
       ],
       url: `${baseUrl}/share/${id}`,
       type: 'website',
       siteName: 'African Language House',
+      locale: 'en_US',
     },
     twitter: {
       card: 'summary_large_image',
@@ -44,6 +47,15 @@ export const generateMetadata = async ({
       description:
         'Check out my learning progress and join me in learning African languages!',
       images: [imageUrl],
+      creator: '@your_twitter_handle',
+    },
+    // Додаткові мета теги для кращої сумісності
+    other: {
+      'fb:app_id': process.env.NEXT_PUBLIC_FACEBOOK_APP_ID || '',
+      'og:image:secure_url': imageUrl,
+      'og:image:type': 'image/png',
+      'og:image:width': '1200',
+      'og:image:height': '630',
     },
   };
 };
