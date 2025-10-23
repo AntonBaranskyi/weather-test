@@ -3,13 +3,14 @@ import { Metadata } from 'next';
 
 import Image from 'next/image';
 
-export const generateMetadata = ({
+export const generateMetadata = async ({
   params,
 }: {
-  params: { id: string };
-}): Metadata => {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> => {
+  const { id } = await params;
   // params.id вже містить повний fileKey (наприклад: shared-streak/filename)
-  const imageUrl = `https://storage.googleapis.com/dev-alh-app-dev-001-public-assets/${params.id}`;
+  const imageUrl = `https://storage.googleapis.com/dev-alh-app-dev-001-public-assets/${id}`;
   const baseUrl = window.location.origin;
 
   // eslint-disable-next-line no-console
@@ -33,7 +34,7 @@ export const generateMetadata = ({
           alt: 'Learning progress screenshot',
         },
       ],
-      url: `${baseUrl}/share/${params.id}`,
+      url: `${baseUrl}/share/${id}`,
       type: 'website',
       siteName: 'African Language House',
     },
@@ -47,12 +48,13 @@ export const generateMetadata = ({
   };
 };
 
-export default function SharePage({ params }: { params: { id: string } }) {
+export default async function SharePage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
   // params.id вже містить повний fileKey (наприклад: shared-streak/filename)
-  const imageUrl = `https://storage.googleapis.com/dev-alh-app-dev-001-public-assets/shared-streak/${params.id}`;
+  const imageUrl = `https://storage.googleapis.com/dev-alh-app-dev-001-public-assets/shared-streak/${id}`;
 
   // eslint-disable-next-line no-console
-  console.log('SharePage - params.id:', params.id);
+  console.log('SharePage - params.id:', id);
   // eslint-disable-next-line no-console
   console.log('SharePage - imageUrl:', imageUrl);
 
@@ -61,6 +63,8 @@ export default function SharePage({ params }: { params: { id: string } }) {
       <Image
         src={imageUrl}
         alt="Shared photo"
+        width={1200}
+        height={630}
         style={{ maxWidth: '100%', borderRadius: '12px' }}
       />
     </div>
