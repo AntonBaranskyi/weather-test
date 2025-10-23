@@ -17,10 +17,13 @@ export default function Home() {
   const isMobile = useIsMobile();
 
   const handleClick = ()=>{
-    const sharePage =`${process.env.NEXT_PUBLIC_BASE_URL}/share/57e7eb89-d108-4393-92d5-abd5806ac553-1761166009582`;
-
-      const shareUrl =`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(sharePage)}`;
-    window.open(shareUrl, '_blank', 'noopener,noreferrer');
+    const image = 'https://storage.googleapis.com/dev-alh-app-dev-001-public-assets/shared-streak/57e7eb89-d108-4393-92d5-abd5806ac553-1761166009582';
+    
+    navigator.share({
+      title: 'I\'m learning African languages! Join me!',
+      text: 'Check out my learning progress and join me in learning African languages!',
+      url: image,
+    });
      
   }
 
